@@ -66,7 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JR1v3SampleData.xml" />
+    <Content Include="JR1v4SampleData.xml" />
     <Content Include="LICENSE.txt" />
     <Content Include="SushiSoapEnv.xml" />
     <Content Include="WSSecurityPlainText.xml" />
@@ -106,6 +106,6 @@
 copy "$(ProjectDir)SushiSoapEnv.xml" "$(ProjectDir)$(OutDir)"
 copy "$(ProjectDir)WSSecurityPlainText.xml" "$(ProjectDir)$(OutDir)"
 copy "$(ProjectDir)LICENSE.txt" "$(ProjectDir)$(OutDir)"
-copy "$(ProjectDir)JR1v3SampleData.xml" "$(ProjectDir)$(OutDir)"</PreBuildEvent>
+copy "$(ProjectDir)JR1v4SampleData.xml" "$(ProjectDir)$(OutDir)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

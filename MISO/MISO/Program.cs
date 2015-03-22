@@ -28,7 +28,7 @@ namespace MISO
     class Program
     {
         // constants
-        private const string CounterSchemaURL = "http://www.niso.org/schemas/sushi/counter_sushi3_0.xsd";
+        private const string CounterSchemaURL = "http://www.niso.org/schemas/sushi/counter_sushi4_1.xsd";
         private static readonly string[] DateTimeFormats = { "yyyyMM" };
         private const string CommandParameterMessage = @"Parameters are:
 MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by commas]
@@ -76,7 +76,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
         //validation mode stuff
         private static bool IsValid = true;
 
-        private static void CounterV3ValidationEventHandler(object sender, ValidationEventArgs args)
+        private static void CounterV4ValidationEventHandler(object sender, ValidationEventArgs args)
         {
             IsValid = false;
             Console.WriteLine("Validation event\n" + args.Message);
@@ -157,10 +157,10 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             StreamReader sr = new StreamReader(sushiConfig);
 
             //initiate validation
-            XmlSchema CounterSushiSchema = XmlSchema.Read(new XmlTextReader(CounterSchemaURL), new ValidationEventHandler(CounterV3ValidationEventHandler));
+            XmlSchema CounterSushiSchema = XmlSchema.Read(new XmlTextReader(CounterSchemaURL), new ValidationEventHandler(CounterV4ValidationEventHandler));
             XmlReaderSettings.ValidationType = ValidationType.Schema;
             XmlReaderSettings.Schemas.Add(CounterSushiSchema);
-            XmlReaderSettings.ValidationEventHandler += new ValidationEventHandler(CounterV3ValidationEventHandler);
+            XmlReaderSettings.ValidationEventHandler += new ValidationEventHandler(CounterV4ValidationEventHandler);
 
             try
             {
@@ -600,7 +600,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             // write entries
             XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(sushiDoc.NameTable);
             xmlnsManager.AddNamespace("soap", "http://schemas.xmlsoap.org/soap/envelope/");
-            xmlnsManager.AddNamespace("sushi", "http://www.niso.org/schemas/sushi/1_5");
+            xmlnsManager.AddNamespace("sushi", "http://www.niso.org/schemas/sushi/sushi1_7");
             XmlNodeList entries = sushiDoc.SelectNodes("//sushi:journal", xmlnsManager);
 
             if (entries != null)
