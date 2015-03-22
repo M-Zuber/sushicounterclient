@@ -18,7 +18,7 @@ namespace MisoTestProject
 
         public ReportXmlTest()
         {
-            FileStream JR1SampleFile = new FileStream("D:\\sushicounterclient\\MISO\\MISO\\JR1v3SampleData.xml", FileMode.Open, FileAccess.Read);
+            FileStream JR1SampleFile = new FileStream(@"..\..\..\MISO\JR1v3SampleData.xml", FileMode.Open, FileAccess.Read);
             JR1SampleReport = new XmlDocument();
             JR1SampleReport.Load(JR1SampleFile);
 
