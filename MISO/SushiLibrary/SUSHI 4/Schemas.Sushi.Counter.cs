@@ -38,7 +38,6 @@ namespace Schemas.Sushi.Counter
         public System.Collections.ObjectModel.Collection<Schemas.Counter.Report> Report { get; private set; }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="CounterReportResponse" /> Klasse.</para>
         /// <para xml:lang="en">Initializes a new instance of the <see cref="CounterReportResponse" /> class.</para>
         /// </summary>
         public CounterReportResponse()

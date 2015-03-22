@@ -36,7 +36,6 @@ namespace Schemas.Sushi
         public System.Collections.ObjectModel.Collection<Exception> Exception { get; private set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Exception-Collection leer ist.</para>
         /// <para xml:lang="en">Gets a value indicating whether the Exception collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -49,7 +48,6 @@ namespace Schemas.Sushi
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="ReportResponse" /> Klasse.</para>
         /// <para xml:lang="en">Initializes a new instance of the <see cref="ReportResponse" /> class.</para>
         /// </summary>
         public ReportResponse()
@@ -82,7 +80,6 @@ namespace Schemas.Sushi
         public System.DateTime Created { get; set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Created-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
         /// <para xml:lang="en">Gets or sets a value indicating whether the Created property is specified.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -142,7 +139,6 @@ namespace Schemas.Sushi
         public System.DateTime Created { get; set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Created-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
         /// <para xml:lang="en">Gets or sets a value indicating whether the Created property is specified.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -291,7 +287,6 @@ namespace Schemas.Sushi
         public System.Collections.ObjectModel.Collection<FilterName> Filter { get; private set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Filter-Collection leer ist.</para>
         /// <para xml:lang="en">Gets a value indicating whether the Filter collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -304,7 +299,6 @@ namespace Schemas.Sushi
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="ReportDefinitionFilters" /> Klasse.</para>
         /// <para xml:lang="en">Initializes a new instance of the <see cref="ReportDefinitionFilters" /> class.</para>
         /// </summary>
         public ReportDefinitionFilters()
@@ -320,7 +314,6 @@ namespace Schemas.Sushi
         public System.Collections.ObjectModel.Collection<ReportAttribute> ReportAttribute { get; private set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die ReportAttribute-Collection leer ist.</para>
         /// <para xml:lang="en">Gets a value indicating whether the ReportAttribute collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -368,7 +361,6 @@ namespace Schemas.Sushi
     {
         
         /// <summary>
-        /// <para xml:lang="de">Ruft den Text ab oder legt diesen fest.</para>
         /// <para xml:lang="en">Gets or sets the text value.</para>
         /// </summary>
         [System.Xml.Serialization.XmlTextAttribute(DataType="string")]
@@ -392,7 +384,6 @@ namespace Schemas.Sushi
     {
         
         /// <summary>
-        /// <para xml:lang="de">Ruft den Text ab oder legt diesen fest.</para>
         /// <para xml:lang="en">Gets or sets the text value.</para>
         /// </summary>
         [System.Xml.Serialization.XmlTextAttribute(DataType="string")]
@@ -443,7 +434,6 @@ namespace Schemas.Sushi
         public System.DateTime Created { get; set; }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Created-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
         /// <para xml:lang="en">Gets or sets a value indicating whether the Created property is specified.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -455,17 +445,18 @@ namespace Schemas.Sushi
         [System.Xml.Serialization.XmlAttributeAttribute("ID", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="string")]
         public string ID { get; set; }
     }
-    
-    /// <summary>
-    /// </summary>
-    [System.SerializableAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "0.5.5559.28274")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute("ReportRequest", Namespace="http://www.niso.org/schemas/sushi")]
-    public partial class ReportRequest : Schemas.Sushi.ReportRequest
-    {
-    }
+
+
+    // Generated by the tool but results in the following error: 
+    // Circular base class dependency involving 'Schemas.Sushi.ReportRequest' and 'Schemas.Sushi.ReportRequest'
+    //[System.SerializableAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "0.5.5559.28274")]
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.ComponentModel.DesignerCategoryAttribute("code")]
+    //[System.Xml.Serialization.XmlRootAttribute("ReportRequest", Namespace="http://www.niso.org/schemas/sushi")]
+    //public partial class ReportRequest : Schemas.Sushi.ReportRequest
+    //{
+    //}
     
     /// <summary>
     /// </summary>
