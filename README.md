@@ -3,8 +3,8 @@ Windows XP 32-bit
 
 ****Requirements****
 
-Microsoft .NET Framework 2.0
-http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en
+[Microsoft .NET Framework 2.0]
+(http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en)
 
 ****Description****
 
