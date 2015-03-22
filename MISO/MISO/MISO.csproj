@@ -106,7 +106,6 @@
 copy "$(ProjectDir)SushiSoapEnv.xml" "$(ProjectDir)$(OutDir)"
 copy "$(ProjectDir)WSSecurityPlainText.xml" "$(ProjectDir)$(OutDir)"
 copy "$(ProjectDir)LICENSE.txt" "$(ProjectDir)$(OutDir)"
-copy "$(ProjectDir)JR1v3SampleData.xml" "$(ProjectDir)$(OutDir)"
-copy "$(ProjectDir)README.txt" "$(ProjectDir)$(OutDir)"</PreBuildEvent>
+copy "$(ProjectDir)JR1v3SampleData.xml" "$(ProjectDir)$(OutDir)"</PreBuildEvent>
   </PropertyGroup>
 </Project>
