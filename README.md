@@ -52,8 +52,8 @@ For more syntax details, use the following command
 
 ****Building from source****
 
-You will need Visual Studio 2008 to build the project.
-A free version (Express Edition) is available but is not tested.
-http://www.microsoft.com/Express/
+You will need Visual Studio 2013 to build the project.
+A free version ([Community Edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)) is available but is not tested.
+
 
 It may also be possible to build for non-Windows platforms using Project Mono but this is not tested.
