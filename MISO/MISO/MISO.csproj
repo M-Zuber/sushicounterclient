@@ -67,7 +67,6 @@
   <ItemGroup>
     <Content Include="JR1v3SampleData.xml" />
     <Content Include="LICENSE.txt" />
-    <Content Include="README.txt" />
     <Content Include="SushiSoapEnv.xml" />
     <Content Include="WSSecurityPlainText.xml" />
   </ItemGroup>
