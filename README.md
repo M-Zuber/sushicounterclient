@@ -23,23 +23,28 @@ Any errors encountered will be written to an error file in the same directory.
 
 The syntax for the utility takes a start and end date in mmyyyy format and an optional list of library codes delimited by commas with no space.
 
-Examples
+Examples:
+```
 miso -d 200801 200805
 miso -d 200812 200905 -l XER,ER1
+```
 
 There is also a validation mode to validate local Sushi-Counter XML files. 
 For example, the following command will fetch all the reports for 2008 Jan to 2008 May and validate each response
-miso -v -d 200801 200805
+
+`miso -v -d 200801 200805`
 
 You can test the included sample JR1 file.
 
-miso -v JR1v3SampleData.xml
+`miso -v JR1v3SampleData.xml`
 
 If you wish to examine the actual XML returned by the server, you can save the file as xml without converting to csv.
-miso -x -d 200801 200805
+
+`miso -x -d 200801 200805`
 
 For more syntax details, use the following command
-miso -h
+
+`miso -h`
 
 ****Building from source****
 
