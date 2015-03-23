@@ -1,2 +1,4 @@
 Library Code,Provider Name,Release,URL,Requestor ID,Requestor Name,Requestor E-Mail,Customer ID,Customer Name,JR1,JR2(Not yet Supported),DB1,DB2(Not yet Supported),DB3,WSSE Username (Proquest only),WSSE Password (Proquest Only)
-Lib1,Euclid,3,http://projecteuclid.org/sushi/16/service.cgi,demo,?,?,demo,?,y,n,n,n,n,,
+Lib1,Euclid,4,http://projecteuclid.org/sushi/16/service.cgi,demo,?,?,demo,?,y,n,n,n,n,,
+Lib1,Springer,4,http://services.springer.com/sushi,?,?,example@springer.com,3000093925,?,y,n,n,n,n,,
+,springer bmc,4,http://services.springer.com/sushi/bmc,?,?,example@biomedcentral.com,BMC:201,?,y,n,n,n,n,,

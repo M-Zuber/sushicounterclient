@@ -594,55 +594,6 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             }
         }
 
-        private static void ParseJR1v1(XmlDocument sushiDoc, TextWriter tw)
-        {
-
-            // write entries
-            XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(sushiDoc.NameTable);
-            xmlnsManager.AddNamespace("soap", "http://schemas.xmlsoap.org/soap/envelope/");
-            xmlnsManager.AddNamespace("sushi", "http://www.niso.org/schemas/sushi/sushi1_7");
-            XmlNodeList entries = sushiDoc.SelectNodes("//sushi:journal", xmlnsManager);
-
-            if (entries != null)
-            {
-                foreach (XmlNode entry in entries)
-                {
-                    StringBuilder journal = new StringBuilder(WrapComma(entry.Attributes["name"].Value));
-                    journal.Append("," + WrapComma(entry.Attributes["publisher"].Value));
-                    journal.Append("," + WrapComma(entry.Attributes["platform"].Value));
-                    journal.Append("," + WrapComma(entry.Attributes["print_issn"].Value));
-                    journal.Append("," + WrapComma(entry.Attributes["online_issn"].Value));
-
-                    for (DateTime currMonth = StartDate; currMonth <= EndDate; currMonth = currMonth.AddMonths(1))
-                    {
-                        journal.Append(",");
-                        // assume end date matches end of month
-                        XmlNode request =
-                            entry.SelectSingleNode(
-                                string.Format("sushi:requests[@start='{0}' and @type='ft_total']",
-                                              currMonth.ToString("yyyy-MM-dd")), xmlnsManager);
-
-                        if (request != null && request.InnerText != string.Empty)
-                        {
-                            //strip comma from numbers just in case
-                            journal.Append(request.InnerText.Replace(",", ""));
-                        }
-                        else
-                        {
-                            // since 360 counter does not accept blank cells, add a zero if usage stat is missing
-                            journal.Append("0");
-                        }
-                    }
-
-                    // fill YTD with zeros since this can't be calculated
-                    journal.Append(",0");
-                    journal.Append(",0");
-                    journal.Append(",0");
-
-                    tw.WriteLine(journal);
-                }
-            }
-        }
         private static void ParseDB1v3(XmlDocument sushiDoc, TextWriter tw)
         {
             XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(sushiDoc.NameTable);
