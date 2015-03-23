@@ -43,13 +43,12 @@ namespace SushiLibrary
             SushiReport sushiReport = new SushiReport();
 
             XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(reportXml.NameTable);
-
             xmlnsManager.AddNamespace("c", "http://www.niso.org/schemas/counter");
             xmlnsManager.AddNamespace("s", "http://www.niso.org/schemas/sushi");
 
             sushiReport.ReportType =
                 (CounterReportType)
-                Enum.Parse(typeof (CounterReportType),
+                Enum.Parse(typeof(CounterReportType),
                            GetValue(
                                reportXml.SelectSingleNode("//s:ReportDefinition", xmlnsManager).Attributes["Name"]),
                            true);
@@ -68,7 +67,6 @@ namespace SushiLibrary
                     DateTime.TryParse(GetValue(report.Attributes["Created"]), out created);
 
                     var counterReport = new CounterReport();
-
 
                     counterReport.ID = GetValue(report.Attributes["ID"]);
                     counterReport.Name = GetValue(report.Attributes["Name"]);
@@ -159,7 +157,7 @@ namespace SushiLibrary
                                     {
                                         category = (CounterMetricCategory)Enum.Parse(typeof(CounterMetricCategory), metric.SelectSingleNode("c:Category", xmlnsManager).InnerText, true);
                                     }
-                                    catch (ArgumentException ex)
+                                    catch (ArgumentException)
                                     {
                                         Console.WriteLine(string.Format("WARNING - Found Invalid Metric Category Type: {0}", metric.SelectSingleNode("c:Category", xmlnsManager).InnerText));
                                     }
@@ -176,36 +174,30 @@ namespace SushiLibrary
 
                                         foreach (XmlNode instance in instances)
                                         {
-                                            CounterMetricInstance metricInstance= new CounterMetricInstance();
+                                            CounterMetricInstance metricInstance = new CounterMetricInstance();
                                             metricInstance.Type =
                                                 (CounterMetricType)
-                                                Enum.Parse(typeof (CounterMetricType),
+                                                Enum.Parse(typeof(CounterMetricType),
                                                            instance.SelectSingleNode("c:MetricType",
                                                                                    xmlnsManager).InnerText, true);
 
                                             // return exception if can't parse count, since it's important to process properly
-                                            metricInstance.Count = Int32.Parse(instance.SelectSingleNode("c:Count", xmlnsManager).InnerText); ;
+                                            metricInstance.Count = Int32.Parse(instance.SelectSingleNode("c:Count", xmlnsManager).InnerText);
 
                                             counterMetric.Instances.Add(metricInstance);
                                         }
-
                                     }
-
                                 }
                             }
 
                             counterReport.ReportItems.Add(counterReportItem);
-
                         }
                     }
 
                     sushiReport.CounterReports.Add(counterReport);
                 }
             }
-
-
             return sushiReport;
         }
-
     }
 }

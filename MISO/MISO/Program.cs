@@ -27,6 +27,8 @@ namespace MISO
 {
     class Program
     {
+        #region Variables and Properties
+
         // constants
         private const string CounterSchemaURL = "http://www.niso.org/schemas/sushi/counter_sushi4_1.xsd";
         private static readonly string[] DateTimeFormats = { "yyyyMM" };
@@ -87,6 +89,8 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
         {
             get { return DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"); }
         }
+
+        #endregion
 
         static void Main(string[] args)
         {
@@ -165,7 +169,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             try
             {
 
-            #region Initialize
+                #region Initialize
                 // validate file mode
                 if ((ValidateMode || StrictValidateMode) && !string.IsNullOrEmpty(validateFile))
                 {
@@ -228,7 +232,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     DateTime startMonth = DateTime.Now.AddMonths(-1);
                     DateTime endMonth = DateTime.Now.AddMonths(-1);
 
-                    
+
                     if (!string.IsNullOrEmpty(start))
                     {
                         startMonth = DateTime.ParseExact(start, DateTimeFormats, null,
@@ -254,7 +258,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     RequestTemplate = reader.ReadToEnd();
                     reader.Close();
 
-                    #endregion
+                #endregion
 
                     Dictionary<string, string> libCodeMap = null;
                     if (specifiedLibCodes)
@@ -316,6 +320,8 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             {
                 sr.Close();
                 sushiConfig.Close();
+
+                // the field is used to prevent the property from intializing the file just to close it.
                 if (_errorFile != null)
                 {
                     _errorFile.Close();
@@ -323,40 +329,6 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             }
         }
 
-        /// <summary>
-        /// Make the request to the sushi server with the given request
-        /// </summary>
-        /// <param name="reqDoc"></param>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        private static string CallSushiServer(XmlDocument reqDoc, string url)
-        {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Headers.Add("SOAPAction", "\"SushiService:GetReportIn\"");
-
-            ServicePointManager.ServerCertificateValidationCallback += customXertificateValidation;
-
-            req.ContentType = "text/xml;charset=\"utf-8\"";
-            req.Accept = "text/xml";
-            req.Method = "POST";
-            req.Timeout = Int32.MaxValue;
-            Stream stm = req.GetRequestStream();
-            reqDoc.Save(stm);
-            stm.Close();
-
-            WebResponse resp = req.GetResponse();
-
-            StreamReader SReader= new StreamReader(resp.GetResponseStream());
-            return SReader.ReadToEnd();
-        }
-
-        private static bool customXertificateValidation(object sender, X509Certificate cert, X509Chain chain, System.Net.Security.SslPolicyErrors error)
-        {
-            //TODO just accept the cert for now since they usually tend to be unregistered
-            return true;
-
-        }
-        
         /// <summary>
         /// Send sushi request and convert to csv
         /// </summary>
@@ -466,7 +438,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
 
             Console.WriteLine("Parsing report of type: " + reportType);
 
-            switch(reportType)
+            switch (reportType)
             {
                 case "JR1":
                     tw.WriteLine("Journal Report 1 (R2),Number of Successful Full-Text Article Requests By Month and Journal");
@@ -485,7 +457,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     header.Append(",YTD Total,YTD HTML,YTD PDF");
                     tw.WriteLine(header);
 
-                    ParseJR1v3(sushiReport, tw);
+                    ParseJR1(sushiReport, tw);
 
                     tw.Close();
 
@@ -508,7 +480,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     tw.WriteLine(header);
 
 
-                    ParseDB1v3(sushiDoc, tw);
+                    ParseDB1(sushiDoc, tw);
 
                     tw.Close();
                     break;
@@ -529,7 +501,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     header.Append(",YTD Total");
                     tw.WriteLine(header);
 
-                    ParseDB3v3(sushiDoc, tw);
+                    ParseDB3(sushiDoc, tw);
 
                     tw.Close();
                     break;
@@ -539,20 +511,52 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             }
         }
 
-        private static void ParseJR1v3(SushiReport sushiReport, TextWriter tw)
+        /// <summary>
+        /// Make the request to the sushi server with the given request
+        /// </summary>
+        /// <param name="reqDoc"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private static string CallSushiServer(XmlDocument reqDoc, string url)
         {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Headers.Add("SOAPAction", "\"SushiService:GetReportIn\"");
 
-            // only do one report for now
+            ServicePointManager.ServerCertificateValidationCallback += customXertificateValidation;
+
+            req.ContentType = "text/xml;charset=\"utf-8\"";
+            req.Accept = "text/xml";
+            req.Method = "POST";
+            req.Timeout = Int32.MaxValue;
+            Stream stm = req.GetRequestStream();
+            reqDoc.Save(stm);
+            stm.Close();
+
+            WebResponse resp = req.GetResponse();
+
+            StreamReader SReader = new StreamReader(resp.GetResponseStream());
+            return SReader.ReadToEnd();
+        }
+
+        private static bool customXertificateValidation(object sender, X509Certificate cert, X509Chain chain, System.Net.Security.SslPolicyErrors error)
+        {
+            //TODO just accept the cert for now since they usually tend to be unregistered
+            return true;
+
+        }
+
+        private static void ParseJR1(SushiReport sushiReport, TextWriter tw)
+        {
             if (sushiReport.CounterReports.Count > 0)
             {
+                // only do one report for now
                 CounterReport report = sushiReport.CounterReports[0];
 
                 foreach (JournalReportItem reportItem in report.ReportItems)
                 {
                     StringBuilder line =
                         new StringBuilder(WrapComma(reportItem.Name) + "," + WrapComma(reportItem.Publisher) + "," +
-                                          WrapComma(reportItem.Platform) + "," + reportItem.PrintISSN + "," + reportItem.OnlineISSN);
-
+                                          WrapComma(reportItem.Platform) + "," + reportItem.PrintISSN + "," + reportItem.OnlineISSN + ",");
 
                     for (DateTime currMonth = StartDate; currMonth <= EndDate; currMonth = currMonth.AddMonths(1))
                     {
@@ -560,8 +564,8 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                         DateTime end = new DateTime(currMonth.Year, currMonth.Month, DateTime.DaysInMonth(currMonth.Year, currMonth.Month));
 
                         CounterMetric metric;
-
                         bool foundCount = false;
+
                         if (reportItem.TryGetMetric(start, end, CounterMetricCategory.Requests, out metric))
                         {
                             foreach (var instance in metric.Instances)
@@ -569,19 +573,12 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                                 // get ft_total only
                                 if (!foundCount && instance.Type == CounterMetricType.ft_total)
                                 {
-                                    line.Append("," + instance.Count);
+                                    line.Append(instance.Count);
                                     foundCount = true;
                                 }
                             }
-                            
-                        }
-
-                        if (!foundCount)
-                        {
-                            line.Append(",");
                         }
                     }
-
 
                     // fill YTD with zeros since this can't be calculated
                     line.Append(",0");
@@ -589,12 +586,11 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     line.Append(",0");
 
                     tw.WriteLine(line);
-
                 }
             }
         }
 
-        private static void ParseDB1v3(XmlDocument sushiDoc, TextWriter tw)
+        private static void ParseDB1(XmlDocument sushiDoc, TextWriter tw)
         {
             XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(sushiDoc.NameTable);
 
@@ -614,7 +610,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     MonthData = new Dictionary<string, string>();
                     XmlNodeList months = entry.SelectNodes("c:ItemPerformance", xmlnsManager);
                     if (months != null)
-                    {   
+                    {
                         foreach (XmlNode month in months)
                         {
                             DateTime startDate;
@@ -679,7 +675,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             }
         }
 
-        private static void ParseDB3v3(XmlDocument sushiDoc, TextWriter tw)
+        private static void ParseDB3(XmlDocument sushiDoc, TextWriter tw)
         {
             XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(sushiDoc.NameTable);
 
@@ -714,7 +710,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                                 {
                                     try
                                     {
-                                        MonthData.Add(startDate.ToString("MMM-yy") + month.SelectSingleNode("c:Category", xmlnsManager).InnerText, month.SelectSingleNode("c:Instance/c:Count", xmlnsManager).InnerText);   
+                                        MonthData.Add(startDate.ToString("MMM-yy") + month.SelectSingleNode("c:Category", xmlnsManager).InnerText, month.SelectSingleNode("c:Instance/c:Count", xmlnsManager).InnerText);
                                     }
                                     catch (ArgumentException)
                                     {
