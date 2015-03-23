@@ -25,7 +25,7 @@ Otherwise, it will run through every line in sushiconfig.csv, fetch the reports 
 
 Any errors encountered will be written to an error file in the same directory.
 
-The syntax for the utility takes a start and end date in mmyyyy format and an optional list of library codes delimited by commas with no space.
+The syntax for the utility takes a start and end date in `yyyyMM` format and an optional list of library codes delimited by commas with no space.
 
 Examples:
 ```
