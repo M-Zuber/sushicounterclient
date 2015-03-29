@@ -441,7 +441,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
             switch (reportType)
             {
                 case "JR1":
-                    tw.WriteLine("Journal Report 1 (R2),Number of Successful Full-Text Article Requests By Month and Journal");
+                    tw.WriteLine("Journal Report 1 (R4),Number of Successful Full-Text Article Requests By Month and Journal");
                     tw.WriteLine(fields[0]);
                     tw.WriteLine("Date run:");
                     tw.WriteLine(DateTime.Now.ToString("yyyy-M-d"));
@@ -463,7 +463,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
 
                     break;
                 case "DB1":
-                    tw.WriteLine("Database Report 1 (R2),Total Searches and Sessions by Month and Database");
+                    tw.WriteLine("Database Report 1 (R4),Total Searches and Sessions by Month and Database");
                     tw.WriteLine(fields[0]);
                     tw.WriteLine("Date run:");
                     tw.WriteLine(DateTime.Now.ToString("yyyy-M-d"));
@@ -485,7 +485,7 @@ MISO.EXE [-v] [filename] [-d] [start] [end] [-l] [Library codes separated by com
                     tw.Close();
                     break;
                 case "DB3":
-                    tw.WriteLine("Database Report 3 (R2),Total Searches and Sessions by Month and Service");
+                    tw.WriteLine("Database Report 3 (R4),Total Searches and Sessions by Month and Service");
                     tw.WriteLine(fields[0]);
                     tw.WriteLine("Date run:");
                     tw.WriteLine(DateTime.Now.ToString("yyyy-M-d"));
